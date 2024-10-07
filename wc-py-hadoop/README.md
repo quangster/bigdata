@@ -20,12 +20,18 @@ Prepare data, push to HDFS
 hdfs dfs -put ../data/lenta_articles /lenta_articles
 ```
 
+Delete /output-wc-py folder in HDFS if exists
+```bash
+hdfs dfs -rm -r /output-wc-py
+```
+
 Perform Hadoop Streaming
 ```
 hadoop jar ../libs/hadoop-streaming-3.4.0.jar -files mapper.py,reducer.py -mapper mapper.py -reducer reducer.py -input /lenta_articles -output /output-wc-py
 ```
 
-Cat ouput
+Output
 ```bash
 hdfs dfs -cat /output-wc-py/part-00000
+hdfs dfs -get /output-wc-py .
 ```
